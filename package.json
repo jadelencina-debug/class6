@@ -1,0 +1,9 @@
+{
+  "name": "ecommerce-workspace",
+  "private": true,
+  "scripts": {
+    "dev": "npm --prefix tienda-frontend run dev",
+    "build": "npm --prefix tienda-frontend run build",
+    "lint": "npm --prefix tienda-frontend run lint"
+  }
+}

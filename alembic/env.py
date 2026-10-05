@@ -19,8 +19,12 @@ if config.config_file_name is not None:
 import sys
 import os
 sys.path.insert(0, os.path.dirname(os.path.dirname(__file__)))
+from app.core.config import settings
 from app.models import Base
 target_metadata = Base.metadata
+
+# Sincronizar URL de la base de datos con settings (.env)
+config.set_main_option("sqlalchemy.url", settings.DATABASE_URL)
 
 # other values from the config, defined by the needs of env.py,
 # can be acquired:
@@ -67,7 +71,8 @@ def run_migrations_online() -> None:
 
     with connectable.connect() as connection:
         context.configure(
-            connection=connection, target_metadata=target_metadata
+            connection=connection, target_metadata=target_metadata,
+            render_as_batch=True
         )
 
         with context.begin_transaction():
